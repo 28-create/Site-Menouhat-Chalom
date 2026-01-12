@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ניהול מערכת - מנוחת שלום</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon_white.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Admin Specific CSS -->
+    <style>
+        body {
+            background: #f4f6f8;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .admin-section {
+            background: white;
+        }
+
+        .save-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+    </style>
+</head>
+
+<body class="theme-light">
+    <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+        <h1><ion-icon name="settings-outline"></ion-icon> ממשק ניהול - מנוחת שלום</h1>
+        <a href="index.html" class="btn-sm"
+            style="text-decoration:none; background:var(--primary-accent); color:white;">חזרה לאתר</a>
+    </header>
+
+    <div id="admin-container">
+        <!-- Structure copied from index.html admin modal -->
+        <form id="admin-form">
+            <div class="admin-grid">
+                <div class="admin-section">
+                    <h4><ion-icon name="time-outline"></ion-icon> זמני תפילות קבועים</h4>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-top:10px;">
+                        <div class="form-group">
+                            <label>שחרית (חול)</label>
+                            <input type="text" id="input-shacharit">
+                        </div>
+                        <div class="form-group">
+                            <label>מנחה (חול)</label>
+                            <input type="text" id="input-mincha">
+                        </div>
+                        <div class="form-group">
+                            <label>ערבית (חול)</label>
+                            <input type="text" id="input-arvit">
+                        </div>
+                        <div class="form-group">
+                            <label>שחרית (שבת)</label>
+                            <input type="text" id="input-shacharit-shabbat">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <label>דובר / דרשה</label>
+                        <input type="text" id="input-dracha-speaker" placeholder="שם הרב...">
+                    </div>
+
+                    <!-- MANUAL OVERRIDES -->
+                    <h5
+                        style="margin-top:15px; border-top:1px solid #eee; padding-top:10px; margin-bottom:10px; color:#c0392b;">
+                        שינוי חד פעמי (עוקף אוטומט)</h5>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                        <div class="form-group">
+                            <label>הדלקת נרות (ידני)</label>
+                            <input type="text" id="input-manual-candles" placeholder="לדוג' 16:50">
+                        </div>
+                        <div class="form-group">
+                            <label>שיר השירים (ידני)</label>
+                            <input type="text" id="input-manual-chir" placeholder="לדוג' 16:55">
+                        </div>
+                        <div class="form-group">
+                            <label>מנחה ע"ש (ידני)</label>
+                            <input type="text" id="input-manual-mincha-erev" placeholder="לדוג' 17:10">
+                        </div>
+                        <div class="form-group">
+                            <label>מנחה שבת (ידני)</label>
+                            <input type="text" id="input-manual-mincha-shabbat" placeholder="לדוג' 17:10">
+                        </div>
+                        <div class="form-group">
+                            <label>ערבית מוצ"ש (ידני)</label>
+                            <input type="text" id="input-manual-arvit-motzash" placeholder="לדוג' 18:05">
+                        </div>
+                        <div class="form-group">
+                            <label>זמן מוצ"ש (ידני)</label>
+                            <input type="text" id="input-manual-motzash" placeholder="לדוג' 18:00">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Announcements Admin -->
+                <div class="admin-section">
+                    <h4>
+                        <span><ion-icon name="megaphone-outline"></ion-icon> לוח מודעות (מזל טוב / שיעורים)</span>
+                        <button type="button" class="add-btn" onclick="addAnnouncementRow()">+ הוסף מודעה</button>
+                    </h4>
+                    <div class="admin-section" style="border:none; padding:0; background:transparent;">
+                        <h5>כותרת כללית למדור</h5>
+                        <input type="text" id="input-ann-title" placeholder="כותרת (למשל: לוח מודעות / מזל טוב)"
+                            style="width:100%;">
+                    </div>
+                    <div id="announcement-inputs" style="margin-top:10px;"></div>
+                </div>
+
+                <!-- Dedications Section -->
+                <div class="admin-section">
+                    <h4>
+                        <span><ion-icon name="create-outline"></ion-icon> לוח הקדשות (באנרים)</span>
+                        <button type="button" class="add-btn" onclick="addDedicationRow()">+ הוסף הקדשה</button>
+                    </h4>
+                    <div id="dedication-inputs"></div>
+                </div>
+            </div>
+
+            <!-- Footer Admin -->
+            <div class="admin-section" style="margin-top:20px;">
+                <h4><ion-icon name="document-text-outline"></ion-icon> תוכן תחתון (Footer)</h4>
+                <div class="admin-section">
+                    <h3>טקסט היסטוריה</h3>
+                    <textarea id="input-history-text" rows="4" style="width:100%;"
+                        placeholder="טקסט היסטוריה לפוטר..."></textarea>
+                </div>
+                <div class="admin-section">
+                    <h3>אנשי קשר (פוטר ימין)</h3>
+                    <div id="contact-inputs"></div>
+                    <button type="button" class="btn-add" onclick="addContactRow()">+ הוסף איש קשר</button>
+                </div>
+            </div>
+
+            <div class="admin-section" style="margin-top:20px;">
+                <h4><span><ion-icon name="images"></ion-icon> גלריה</span> <button type="button" class="add-btn"
+                        onclick="addGalleryRow()">+ הוסף תמונה</button></h4>
+                <div id="gallery-inputs" class="gallery-inputs"></div>
+            </div>
+
+            <div class="admin-section" style="margin-top:20px; margin-bottom:80px;">
+                <h4><span><ion-icon name="people"></ion-icon> פעילויות</span> <button type="button" class="add-btn"
+                        onclick="addActivityRow()">+ הוסף פעילות</button></h4>
+                <div id="activity-inputs"></div>
+            </div>
+
+            <div class="save-bar">
+                <button type="button" class="save-btn" onclick="saveSettings()">שמור עדכונים</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>מנוחת שלום | Menuchat Shalom</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon_white.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Outfit:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body class="theme-light">
+    <!-- Header -->
+    <header class="glass-header">
+        <div class="header-side-start">
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="he" title="עברית"><img src="https://flagcdn.com/w40/il.png"
+                        alt="IL"></button>
+                <button class="lang-btn" data-lang="fr" title="Français"><img src="https://flagcdn.com/w40/fr.png"
+                        alt="FR"></button>
+                <button class="lang-btn" data-lang="en" title="English"><img src="https://flagcdn.com/w40/us.png"
+                        alt="US"></button>
+            </div>
+            <!-- Admin Button moved here -->
+            <button id="open-admin-btn" class="header-admin-btn" title="ניהול מערכת">
+                <ion-icon name="settings-sharp"></ion-icon>
+            </button>
+        </div>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Menuchat Shalom" class="synagogue-logo">
+        </div>
+        <div class="header-side-end">
+            <div class="date-widget">
+                <div id="hebrew-date" class="hebrew-date">...</div>
+                <div id="civil-date" class="civil-date">...</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero-dashboard rtl" id="main-dashboard">
+            <!-- PRAYER CARD -->
+            <div class="dashboard-card prayer-card">
+                <h2 data-i18n="prayer_times_title"><ion-icon name="time-outline"></ion-icon> זמני תפילה</h2>
+
+                <div class="prayer-block">
+                    <h3 data-i18n="weekday_title"><ion-icon name="briefcase-outline"></ion-icon> יום חול</h3>
+                    <div class="prayer-list">
+                        <div class="prayer-item">
+                            <span class="prayer-name" data-i18n="shacharit">שחרית</span>
+                            <div class="prayer-time-badge" id="t-shacharit">06:20</div>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="prayer-name" data-i18n="mincha">מנחה</span>
+                            <div class="prayer-time-badge" id="t-mincha">12:35</div>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="prayer-name" data-i18n="arvit">ערבית</span>
+                            <div class="prayer-time-badge" id="t-arvit">17:30</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prayer-block">
+                    <h3 data-i18n="shabbat_title"><ion-icon name="flame-outline"></ion-icon> שבת קודש</h3>
+                    <div class="shabbat-parasha" id="parasha-val-shabbat">...</div>
+
+                    <div class="prayer-list">
+                        <div class="prayer-item">
+                            <span class="prayer-name" data-i18n="candles">הדלקת נרות <span
+                                    style="font-size:1.2em; letter-spacing:-6px; margin-right:5px;">🕯️🕯️</span></span>
+                            <div class="prayer-time-badge shabbat" id="t-candles">...</div>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="prayer-name" data-i18n="chir_hachirim">שיר השירים</span>
+                            <div class="prayer-time-badge shabbat" id="t-chir">...</div>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="prayer-name" data-i18n="mincha_erev_shabbat">מנחה ע"ש</span>
+                            <div class="prayer-time-badge shabbat" id="t-mincha-erev">...</div>
+                        </div>
+                        <div class="prayer-item dracha-item"
+                            style="justify-content:center; text-align:center; flex-direction:column; gap:5px; border-bottom:1px solid rgba(138, 109, 59, 0.1); padding:10px 0;">
+                            <span class="prayer-name" style="width:100%; justify-content:center;"><span
+                                    data-i18n="dracha">דרשה</span></span>
+                            <div id="dracha-speaker" style="font-weight:600; font-size:1.1em; color:#b4924c;">...</div>
+                            <!-- Time Badge hidden but preserved for structure if needed -->
+                            <div class="prayer-time-badge shabbat" id="t-dracha" style="display:none;">...</div>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="prayer-name" data-i18n="shacharit_shabbat">שחרית</span>
+                            <div class="prayer-time-badge shabbat" id="t-shacharit-shabbat">08:15</div>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="prayer-name" data-i18n="mincha_shabbat">מנחה שבת</span>
+                            <div class="prayer-time-badge shabbat" id="t-mincha-day">...</div>
+                        </div>
+                        <div class="prayer-item">
+                            <span class="prayer-name" data-i18n="arvit_motzash">ערבית מוצ"ש</span>
+                            <div class="prayer-time-badge shabbat" id="t-arvit-motzash-pray">...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ZMANIM CARD -->
+            <div class="dashboard-card info-card">
+                <h2 data-i18n="daily_info_title"><ion-icon name="calendar-outline"></ion-icon> הלכה וזמנים</h2>
+                <div class="zmanim-grid" id="zmanim-list"></div>
+            </div>
+
+            <!-- DEDICATIONS CONTAINER (Multiple) -->
+            <div id="dedications-wrapper"
+                style="grid-column: 1 / -1; display:flex; gap:15px; flex-wrap:wrap; justify-content:center; width:100%;">
+            </div>
+            </div>
+        </section>
+
+        <!-- Announcements Section -->
+        <section class="announcements-section" id="announcements-section">
+            <h2 class="section-title"><ion-icon name="megaphone-outline"></ion-icon> <span
+                    id="announcements-section-title">לוח מודעות</span></h2>
+            <div class="announcements-grid" id="announcements-container">
+                <!-- JS Populated -->
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section class="gallery-section">
+            <h2 class="section-title"><ion-icon name="images-outline"></ion-icon> גלריית בית המדרש</h2>
+            <div class="gallery-container" id="gallery-container"></div>
+        </section>
+
+        <!-- Events -->
+        <section class="events-section">
+            <h2 class="section-title" data-i18n="events_title">חיי הקהילה</h2>
+            <div class="events-grid" id="events-grid"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <!-- Left: History -->
+            <div class="footer-col">
+                <h3 data-i18n="history_title">היסטוריה</h3>
+                <div id="footer-history-text" class="history-text">
+                    ...
+                </div>
+            </div>
+
+            <!-- Center: Donations -->
+            <div class="footer-col center" style="text-align:center;">
+                <h3 data-i18n="donate_title">תרומות והנצחה</h3>
+                <p data-i18n="donate_text" style="color:#d1d5db; margin-bottom:1rem; font-weight:500;">הנדיבות שלכם
+                    מחזקת את הקהילה.</p>
+                <a href="https://www.matara.pro/nedarimplus/online/?mosad=7016601" target="_blank" class="btn-donate">
+                    <ion-icon name="heart"></ion-icon> <span data-i18n="donate_btn">לתרומה</span>
+                </a>
+            </div>
+
+            <!-- Right: Contact -->
+            <div class="footer-col">
+                <h3 data-i18n="contact_title">צור קשר</h3>
+                <div id="footer-contact-list" class="contact-list">
+                    <!-- JS populated -->
+                </div>
+                <div class="suggestion-box" style="border:none; margin-top:2rem; padding:0; text-align:right;">
+                    <a href="mailto:mimran.moche@gmail.com" class="btn-suggestion">
+                        <ion-icon name="mail-outline"></ion-icon> <span data-i18n="suggestion_text">כתוב לנו</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright" style="text-align:center; margin-top:2rem; color: #7f8c8d; font-size:0.9rem;">
+            &copy; 2026 <span data-i18n="synagogue_name">בית כנסת מנוחת שלום</span>.
+        </div>
+    </footer>
+
+    <!-- Admin Modal -->
+    <div id="admin-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><ion-icon name="options-outline"></ion-icon> ניהול מתקדם</h3>
+                <button id="close-admin-btn" class="close-btn"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="modal-body">
+                <form id="admin-form">
+                    <div class="admin-grid">
+                        <div class="admin-section">
+                            <h4><ion-icon name="time-outline"></ion-icon> זמני תפילות קבועים</h4>
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-top:10px;">
+                                <div class="form-group">
+                                    <label>שחרית (חול)</label>
+                                    <input type="text" id="input-shacharit" value="06:20">
+                                </div>
+                                <div class="form-group">
+                                    <label>מנחה (חול)</label>
+                                    <input type="text" id="input-mincha" value="12:35">
+                                </div>
+                                <div class="form-group">
+                                    <label>ערבית (חול)</label>
+                                    <input type="text" id="input-arvit" value="17:30">
+                                </div>
+                                <div class="form-group">
+                                    <label>שחרית (שבת)</label>
+                                    <input type="text" id="input-shacharit-shabbat" value="08:15">
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top:10px;">
+                                <label>דובר / דרשה</label>
+                                <input type="text" id="input-dracha-speaker" placeholder="שם הרב...">
+                            </div>
+
+                            <!-- MANUAL OVERRIDES -->
+                            <h5
+                                style="margin-top:15px; border-top:1px solid #eee; padding-top:10px; margin-bottom:10px; color:#c0392b;">
+                                שינוי חד פעמי (עוקף אוטומט)</h5>
+
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                                <div class="form-group">
+                                    <label>הדלקת נרות (ידני)</label>
+                                    <input type="text" id="input-manual-candles" placeholder="לדוג' 16:50">
+                                </div>
+                                <div class="form-group">
+                                    <label>שיר השירים (ידני)</label>
+                                    <input type="text" id="input-manual-chir" placeholder="לדוג' 16:55">
+                                </div>
+                                <div class="form-group">
+                                    <label>מנחה ע"ש (ידני)</label>
+                                    <input type="text" id="input-manual-mincha-erev" placeholder="לדוג' 17:10">
+                                </div>
+                                <div class="form-group">
+                                    <label>מנחה שבת (ידני)</label>
+                                    <input type="text" id="input-manual-mincha-shabbat" placeholder="לדוג' 17:10">
+                                </div>
+                                <div class="form-group">
+                                    <label>ערבית מוצ"ש (ידני)</label>
+                                    <input type="text" id="input-manual-arvit-motzash" placeholder="לדוג' 18:05">
+                                </div>
+                                <div class="form-group">
+                                    <label>זמן מוצ"ש (ידני)</label>
+                                    <input type="text" id="input-manual-motzash" placeholder="לדוג' 18:00">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Announcements Admin (Moved UP) -->
+                        <div class="admin-section">
+                            <h4>
+                                <span><ion-icon name="megaphone-outline"></ion-icon> לוח מודעות (מזל טוב /
+                                    שיעורים)</span>
+                                <button type="button" class="add-btn" onclick="addAnnouncementRow()">+ הוסף
+                                    מודעה</button>
+                            </h4>
+                            <div class="admin-section" style="border:none; padding:0; background:transparent;">
+                                <h5>כותרת כללית למדור</h5>
+                                <input type="text" id="input-ann-title" placeholder="כותרת (למשל: לוח מודעות / מזל טוב)"
+                                    style="width:100%;">
+                            </div>
+                            <div id="announcement-inputs" style="margin-top:10px;"></div>
+                        </div>
+
+                        <!-- Dedications Section (Dynamic) -->
+                        <div class="admin-section">
+                            <h4>
+                                <span><ion-icon name="create-outline"></ion-icon> לוח הקדשות (באנרים)</span>
+                                <button type="button" class="add-btn" onclick="addDedicationRow()">+ הוסף הקדשה</button>
+                            </h4>
+                            <div id="dedication-inputs">
+                                <!-- JS will populate -->
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Footer Admin -->
+                    <div class="admin-section">
+                        <h4><ion-icon name="document-text-outline"></ion-icon> תוכן תחתון (Footer)</h4>
+                        <div class="admin-section">
+                            <h3>טקסט היסטוריה</h3>
+                            <textarea id="input-history-text" rows="4" style="width:100%;"
+                                placeholder="טקסט היסטוריה לפוטר..."></textarea>
+                        </div>
+                        <!-- Ann Title moved up -->
+
+
+
+                        <div class="admin-section">
+                            <h3>אנשי קשר (פוטר ימין)</h3>
+                            <div id="contact-inputs"></div>
+                            <button type="button" class="btn-add" onclick="addContactRow()">+ הוסף איש קשר</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="admin-section">
+                    <h4><span><ion-icon name="images"></ion-icon> גלריה</span> <button type="button" class="add-btn"
+                            onclick="addGalleryRow()">+ הוסף תמונה</button></h4>
+                    <div id="gallery-inputs" class="gallery-inputs"></div>
+                </div>
+
+                <div class="admin-section">
+                    <h4><span><ion-icon name="people"></ion-icon> פעילויות</span> <button type="button" class="add-btn"
+                            onclick="addActivityRow()">+ הוסף פעילות</button></h4>
+                    <div id="activity-inputs"></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">שמור עדכונים</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
